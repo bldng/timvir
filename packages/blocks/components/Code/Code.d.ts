@@ -2,7 +2,7 @@
  * This is documentation for the Code component.
  */
 import { Language } from "prism-react-renderer";
-import * as React from "react";
+import React from "react";
 /**
  * The underlying DOM element which is rendered by this component.
  */
