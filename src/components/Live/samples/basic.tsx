@@ -4,5 +4,5 @@ import { Live } from "..";
 type Props = Partial<React.ComponentPropsWithoutRef<typeof Live>>;
 
 export default function Sample(props: Props) {
-  return <Live {...props} />;
+  return <Live scope={() => Promise.resolve({})} {...props} />;
 }
