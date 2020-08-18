@@ -9,7 +9,12 @@ module.exports = withCSS(
       ignoreDevErrors: true,
       ignoreBuildErrors: true
     },
+
     pageExtensions: ["js", "jsx", "ts", "tsx", "md", "mdx"],
+
+    experimental: {
+      reactMode: 'concurrent'
+    },
 
     webpack(config) {
       config.module.rules.push({

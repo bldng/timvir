@@ -1,42 +1,21 @@
-import { css } from "linaria";
-import theme from "prism-react-renderer/themes/github";
 import * as React from "react";
-import { LiveEditor, LiveError, LivePreview, LiveProvider } from "react-live";
-import { Exhibit } from "../Exhibit";
-import { Swatch } from "../Swatch";
+
+const Renderer = React.lazy(() => import("./internal/Renderer"));
 
 /**
  * The underlying DOM element which is rendered by this component.
  */
 const Root = "div";
 
-interface Props extends React.ComponentPropsWithoutRef<typeof Root> {}
+interface Props extends React.ComponentPropsWithoutRef<typeof Root> {
+  scope?: () => Promise<any>
+}
 
-function Live({ ...props }: Props, ref: any /* FIXME */) {
+function Live(props: Props, ref: any /* FIXME */) {
   return (
-    <Root ref={ref} {...props}>
-      <LiveProvider theme={theme} code={`<Swatch value="#ff5511" contrastValue="white" />`} scope={{ Swatch }}>
-        <Exhibit
-          bleed={8}
-          className={css`
-            margin-bottom: 12px;
-          `}
-        >
-          <LivePreview />
-        </Exhibit>
-
-        <LiveEditor
-          className={css`
-            margin: -8px;
-            & textarea:focus {
-              outline: none;
-            }
-          `}
-        />
-
-        <LiveError />
-      </LiveProvider>
-    </Root>
+    <React.Suspense fallback={<div>loading</div>}>
+      <Renderer {...props} />
+    </React.Suspense>
   );
 }
 
